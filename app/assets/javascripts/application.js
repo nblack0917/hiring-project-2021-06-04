@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require highstock
+//= require highstock/highcharts-more
 //= require jquery
 //= require jquery_ujs
 //= require newChart

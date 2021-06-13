@@ -187,7 +187,7 @@ let options = {
         align: 'center'
     },
     subtitle: {
-        text: 'Daily temperature for 2 month period and 2 day forecast',
+        text: `Daily temperature for ${monthsToQuery.toString()} month period and 2 day forecast`,
         align: 'center'
     },
     data: {
@@ -347,19 +347,63 @@ let options = {
         data: []
     }],
     navigation: {
-        menuItemStyle: {
-            fontSize: '10px'
+        // menuItemStyle: {
+        //     fontSize: '10px'
+        // },
+        buttonOptions: {
+            align: 'right'
         }
-    }
+    },
+    scrollbar: {
+        enabled: false
+    },
+    rangeSelector: {
+        selected: 4,
+        inputEnabled: false,
+        buttons: [{
+            type: 'day',
+            count: 1,
+            text: '1D',
+        },
+        {
+            type: 'week',
+            count: 1,
+            text: '1W',
+        },
+        {
+            type: 'month',
+            count: 1,
+            text: '1M',
+        },
+        {
+            type: 'month',
+            count: 3,
+            text: '3M',
+        },
+        {
+            type: 'all',
+            count: 1,
+            text: 'All',
+        }]
+    },
 }
 
 // function to create chart with AJAX data
 function makeChart() {
     options.series[0].data = historicData;
     options.series[1].data = forecastData;
-    Highcharts.chart('container', options)
+    Highcharts.stockChart('container', options)
     document.getElementById('loadingSpinner').style.display = 'none'
 }
 
+setInterval(() => {
+    // console.log("update")
+    historicData = [];
+    forecastData = []
+
 // function call to collect AJAX data with makeChart callback
+detailData(makeChart)
+
+}, 1800000)
+
 detailData(makeChart)
