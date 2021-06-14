@@ -429,10 +429,14 @@ const updateData = () => {
     options.series[0].data = highs;
     options.series[1].data = lows;
     Highcharts.stockChart('containerTwo', options)
+    $('#newMonthButtonTwo').toggleClass("d-none")
+    $('#newMonthButtonTwoSpinner').toggleClass("d-none")
 }
 
 // click funtion to update number of months and data
 $('#newMonthButtonTwo').click(function () {
+    $('#newMonthButtonTwo').toggleClass("d-none")
+    $('#newMonthButtonTwoSpinner').toggleClass("d-none")
     let newNum = document.getElementById("monthNumberTwo").value;
     monthsToQuery = parseInt(newNum);
     historicData = [];
