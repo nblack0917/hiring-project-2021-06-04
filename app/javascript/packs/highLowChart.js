@@ -2,7 +2,8 @@
 let loading = true;
 let monthsToQuery = 1;
 let historicData = [];
-let forecastData = [];
+let highs = [];
+let lows = [];
 
 // function to create array of dates for weather api queries
 // creates array of two dates based on # of monthsToQuery: start date to last day of that month, any middle months first day to last day, current month first day to today
@@ -142,7 +143,8 @@ const detailData = async function (callback) {
                     updateHistoricData(weatherData, "historicData")
                 }
             });
-                // console.log(historicData)
+
+            
     }
     
     // Promise loop for historic data
@@ -156,38 +158,51 @@ const detailData = async function (callback) {
     } catch (error) {
         console.error(error);
     }
-
-    // AJAX GET for forecast data
     try {
-        await $.ajax({
-            type: "GET",
-            url: forecastDataURL,
-            dataType: "json",
-            success: function(result) {
-                var weatherData = result.data.weather;
-                // console.log("result", result)  
-                updateHistoricData(weatherData, "forecastData")
-                // console.log(forecastData)
-                callback()
-            }
-        });
+    const sortHighLowData = (arr) => {
+        for(let i=0; i<arr.length; i+=3) {
+          let shallowArray = arr.slice(i, i+3)
+          let compareArray = [];
+          let newHigh = [];
+          let newLow = [];
+          let compareDate = shallowArray[0][0];
+          newHigh.push(compareDate)
+          newLow.push(compareDate)
+        //   console.log("shallow",shallowArray)
+          for(let x = 0; x<3; x++) {
+            compareArray.push(shallowArray[x][1])
+          }
+          compareArray.sort((a, b) => a - b);
+          newHigh.push(compareArray[2])
+          newLow.push(compareArray[0])
+          highs.push(newHigh)
+          lows.push(newLow)
+        }
+      }
+      
+      
+    sortHighLowData(historicData)
+    // console.log(historicData)
+    // console.log(highs)
+    // console.log(lows)
     } catch (error) {
         console.error(error);
     }
+    callback()
 }
 
 // Chart options
 let options = {
     chart: {
+        type: "line",
         zoomType: 'x'
-        
     },
     title: {
-        text: 'Weather for Austin HQ',
+        text: '3-hour Highs and Lows',
         align: 'center'
     },
     subtitle: {
-        text: `Daily temperature for ${monthsToQuery.toString()} month period and 2 day forecast`,
+        text: `Temperatures for ${monthsToQuery.toString()} month period`,
         align: 'center'
     },
     data: {
@@ -320,30 +335,23 @@ let options = {
         valueSuffix: '\xB0 F'
     },
     plotOptions: {
-        area: {
-            fillOpacity: 0.0,
+        line: {
             lineWidth:1,
             marker: {
                 enabled: false
             },
-            states: {
-                hover: {
-                    lineWidth: 3
-                }
-            },
-            threshold: null,
         }
     },
     series: [{
-        type: 'area',
-        name: 'Historic Daily Temperature',
-        color: '#006fc9',
+        type: 'line',
+        name: 'High',
+        color: '#ff0000',
         data: []
     },
     {
-        type: 'area',
-        name: 'Forecast Temperature',
-        color: '#04781f',
+        type: 'line',
+        name: 'Low',
+        color: '#0080ff',
         data: []
     }],
     navigation: {
@@ -390,20 +398,60 @@ let options = {
 
 // function to create chart with AJAX data
 function makeChart() {
-    options.series[0].data = historicData;
-    options.series[1].data = forecastData;
-    Highcharts.stockChart('container', options)
-    document.getElementById('loadingSpinner').style.display = 'none'
+    options.series[0].data = highs;
+    options.series[1].data = lows;
+    // console.log(options)
+    Highcharts.stockChart('containerTwo', options)
+    $("#loadingSpinnerTwo").addClass("d-none");
+    let secondChart = $('#secondChart');
+    secondChart.removeClass('d-none');
+    secondChart.addClass("d-flex");
 }
 
+// callback function to update options to default and update data to new number of months
+const updateData = () => {
+    options.series = [{
+        type: 'line',
+        name: 'High',
+        color: '#ff0000',
+        data: []
+    },
+    {
+        type: 'line',
+        name: 'Low',
+        color: '#0080ff',
+        data: []
+    }]
+    options.subtitle = {
+        text: `Temperatures for ${monthsToQuery.toString()} month period`,
+        align: 'center'
+    }
+    options.series[0].data = highs;
+    options.series[1].data = lows;
+    Highcharts.stockChart('containerTwo', options)
+}
+
+// click funtion to update number of months and data
+$('#newMonthButtonTwo').click(function () {
+    let newNum = document.getElementById("monthNumberTwo").value;
+    monthsToQuery = parseInt(newNum);
+    historicData = [];
+    highs = [];
+    lows = [];
+    detailData(updateData);
+}); 
+
+// update chart every 30 minutes
 setInterval(() => {
     // console.log("update")
     historicData = [];
-    forecastData = []
+    highs = [];
+    lows = [];
 
 // function call to collect AJAX data with makeChart callback
 detailData(makeChart)
 
 }, 1800000)
 
+// create initial chart
 detailData(makeChart)
