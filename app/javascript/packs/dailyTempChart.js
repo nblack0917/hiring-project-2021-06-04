@@ -128,7 +128,7 @@ const detailData = async function (callback) {
 
     // loop for API url for historic data based on number of months needed
     dateParameters.forEach(dates => {
-        let backlogDataURL = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=" + process.env.WEATHER_API_KEY + "6&q=30.404251,-97.849442&date=" + dates[0] + "&enddate=" + dates[1] + "&tp=1&data=weather&format=json"
+        let backlogDataURL = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=" + process.env.WEATHER_API_KEY + "&6&q=30.404251,-97.849442&date=" + dates[0] + "&enddate=" + dates[1] + "&tp=1&data=weather&format=json"
         backLogDataURLArray.push(backlogDataURL)
     })
 
