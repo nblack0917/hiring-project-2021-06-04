@@ -22,6 +22,8 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 # Use Highstock-rails for charting
 gem 'highstock-rails'
+# Figaro for creation of ENV files
+gem 'figaro'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

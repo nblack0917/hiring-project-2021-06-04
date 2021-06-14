@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '.env' })
+
 //starting variables
 let loading = true;
 let monthsToQuery = 1;
@@ -122,11 +124,11 @@ const detailData = async function (callback) {
     }
 
     // API url for forecast data
-    const forecastDataURL = "https://api.worldweatheronline.com/premium/v1/weather.ashx?key=7b0d30e53a61466396e150128211106&q=30.404251,-97.849442&num_of_days=2&tp=1&format=json"
+    const forecastDataURL = "https://api.worldweatheronline.com/premium/v1/weather.ashx?key=" + process.env.WEATHER_API_KEY + "&q=30.404251,-97.849442&num_of_days=2&tp=1&format=json"
 
     // loop for API url for historic data based on number of months needed
     dateParameters.forEach(dates => {
-        let backlogDataURL = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=7b0d30e53a61466396e150128211106&q=30.404251,-97.849442&date=" + dates[0] + "&enddate=" + dates[1] + "&tp=1&data=weather&format=json"
+        let backlogDataURL = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=" + process.env.WEATHER_API_KEY + "6&q=30.404251,-97.849442&date=" + dates[0] + "&enddate=" + dates[1] + "&tp=1&data=weather&format=json"
         backLogDataURLArray.push(backlogDataURL)
     })
 
