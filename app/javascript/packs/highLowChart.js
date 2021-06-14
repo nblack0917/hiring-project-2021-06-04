@@ -200,7 +200,7 @@ let options = {
         zoomType: 'x'
     },
     title: {
-        text: '3-hour Highs and Lows',
+        text: '3-Hour Highs and Lows',
         align: 'center'
     },
     subtitle: {
@@ -218,11 +218,11 @@ let options = {
         title: {
             text: 'Temperature ( \xB0 F )',
             align: 'high',
-            x: -10
+            x: -4
         },
         labels: {
             align: 'left',
-            x: 0,
+            x: 3,
             y: -2
         },
         minorGridLineWidth: 0,
@@ -380,22 +380,22 @@ let options = {
         buttons: [{
             type: 'day',
             count: 1,
-            text: '1D',
+            text: '1d',
         },
         {
             type: 'week',
             count: 1,
-            text: '1W',
+            text: '1w',
         },
         {
             type: 'month',
             count: 1,
-            text: '1M',
+            text: '1m',
         },
         {
             type: 'month',
             count: 3,
-            text: '3M',
+            text: '3m',
         },
         {
             type: 'all',
