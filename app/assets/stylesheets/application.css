@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+.reduce-box {
+  height: 40px;
+  transition: height 0.25s ease-in;
+  overflow: hidden;
+  /* background: #d5d5d5; */
+  position: relative;
+}
+
+.full-box {
+  height: 525px;
+  transition: height 0.15s ease-out;
+}
+
+.close-bar {
+  /* background-color: blue; */
+  position: relative;
+  top: 0;
+  left: 0;
+}

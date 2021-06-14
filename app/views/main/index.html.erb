@@ -1,7 +1,10 @@
-<div class="container d-flex flex-column align-items-center mt-4">
+<div class="container d-flex flex-column align-items-center mt-4" id="main">
 
     <%# container for first chart %>
-    <div id=firstChart class="container-fluid flex-column mw-100 align-items-left shadow p-2 d-none" >
+    <div id=firstChart class="container-fluid flex-column mw-100 align-items-left shadow p-2 d-none full-box" >
+    <div class='close-bar w-100 d-flex justify-content-end'>
+        <div id="closeFirstChart" class="btn d-flex align-items-center"><i id="firstBox" class="far fa-minus-square ms-1"></i></div>
+    </div>
         <div id="container" class="container mw-100 align-center" ></div>
         <form class="d-flex g-3 w-100 ms-3 pe-4 mt-2 justify-content-between" id="numberForm" >
             <div class="col-auto w-25">
@@ -32,8 +35,11 @@
         </form>
     </div>
     <%# container for second chart %>
-    <div id=secondChart class="container-fluid flex-column mw-100 align-items-left shadow my-5 p-2 d-none" >
-        <div id="containerTwo" class="container mw-100 " ></div>
+    <div id=secondChart class="container-fluid flex-column mw-100 align-items-left shadow my-5 p-2 d-none full-box" >
+    <div class='close-bar w-100 d-flex justify-content-end'>
+        <div id="closeSecondChart" class="btn d-flex align-items-center"><i id="secondBox" class="far fa-minus-square ms-1"></i></div>
+    </div>
+    <div id="containerTwo" class="container mw-100 " ></div>
         <form class="d-flex g-3 w-25 ms-3 mt-2 d-inline" id="numberFormTwo">
             <div class="col-auto">
                 <input type="number" id="monthNumberTwo" class="form-control" placeholder="# of Months Displayed"/>
@@ -59,6 +65,8 @@
 
     <%= javascript_pack_tag 'dailyTempChart' %>
     <%= javascript_pack_tag 'highLowChart' %>
+    <%= javascript_pack_tag 'buttons' %>
+    
 
 
 </div>
