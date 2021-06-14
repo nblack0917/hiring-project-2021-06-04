@@ -1,8 +1,8 @@
 require('dotenv').config({ path: '.env' })
 
 //starting variables
-let loading = true;
 let monthsToQuery = 1;
+let forecastDays = 2;
 let historicData = [];
 let forecastData = [];
 
@@ -124,7 +124,7 @@ const detailData = async function (callback) {
     }
 
     // API url for forecast data
-    const forecastDataURL = "https://api.worldweatheronline.com/premium/v1/weather.ashx?key=" + process.env.WEATHER_API_KEY + "&q=30.404251,-97.849442&num_of_days=2&tp=1&format=json"
+    const forecastDataURL = "https://api.worldweatheronline.com/premium/v1/weather.ashx?key=" + process.env.WEATHER_API_KEY + "&q=30.404251,-97.849442&num_of_days=" + forecastDays + "&tp=1&format=json"
 
     // loop for API url for historic data based on number of months needed
     dateParameters.forEach(dates => {
@@ -202,7 +202,14 @@ let options = {
     },
     yAxis: {
         title: {
-            text: 'Temperature (F)'
+            text: 'Temperature ( \xB0 F )',
+            align: 'high',
+            x: -10
+        },
+        labels: {
+            align: 'left',
+            x: 0,
+            y: -2
         },
         minorGridLineWidth: 0,
         gridLineWidth: 0,
@@ -429,8 +436,15 @@ const updateData = () => {
 $('#newMonthButton').click(function () {
     $('#newMonthButton').toggleClass("d-none")
     $('#newMonthButtonSpinner').toggleClass("d-none")
-    let newNum = document.getElementById("monthNumber").value;
-    monthsToQuery = parseInt(newNum);
+    let newMonthNum = document.getElementById("monthNumber").value;
+    let newForecastNum = document.getElementById("forecastLength").value;
+    if (newMonthNum !== "") {
+        monthsToQuery = parseInt(newMonthNum);
+    }
+    if (newForecastNum !== forecastDays) {
+        forecastDays = parseInt(newForecastNum)
+    }
+
     historicData = [];
     forecastData = [];
     detailData(updateData);

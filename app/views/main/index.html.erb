@@ -3,9 +3,9 @@
     <%# container for first chart %>
     <div id=firstChart class="container-fluid flex-column mw-100 align-items-left shadow p-2 d-none" >
         <div id="container" class="container mw-100 align-center" ></div>
-        <form class="d-flex g-3 w-25 ms-3 mt-2" id="numberForm" >
-            <div class="col-auto">
-                <input type="number" id="monthNumber" class="form-control" placeholder="Number of Months"/>
+        <form class="d-flex g-3 w-100 ms-3 pe-4 mt-2 justify-content-between" id="numberForm" >
+            <div class="col-auto w-25">
+                <input type="number" id="monthNumber" class="form-control " placeholder="# of Months Displayed"/>
                 <label class="visually-hidden" for="monthNumber">Number of Months</label>
             </div>
             
@@ -16,17 +16,27 @@
                     Loading...
                 </button>
             </div>
-            <div id="updateLoadingSpinner" class="spinner-grow" style="width: 1rem; height: 1rem;" role="status">
-                <span class="visually-hidden">Loading...</span>
+
+            <div class="col-auto w-25 me-2">
+                <select id="forecastLength" class="form-select mb-3" placeholder="Forecast Length">
+                    <option value="1">Forecast 1 day</option>
+                    <option value="2" selected>Forecast 2 days</option>
+                    <option value="3">Forecast 3 days</option>
+                    <option value="4">Forecast 4 days</option>
+                    <option value="5">Forecast 5 days</option>
+                    <option value="6">Forecast 6 days</option>
+                    <option value="7">Forecast 7 days</option>
+                </select>
+                <label class="visually-hidden" for="monthNumber">Forecast Length</label>
             </div>
         </form>
     </div>
     <%# container for second chart %>
-    <div id=secondChart class="container-fluid flex-column mw-100 align-items-left shadow my-5 d-none" >
+    <div id=secondChart class="container-fluid flex-column mw-100 align-items-left shadow my-5 p-2 d-none" >
         <div id="containerTwo" class="container mw-100 " ></div>
         <form class="d-flex g-3 w-25 ms-3 mt-2 d-inline" id="numberFormTwo">
             <div class="col-auto">
-                <input type="number" id="monthNumberTwo" class="form-control" placeholder="Number of Months"/>
+                <input type="number" id="monthNumberTwo" class="form-control" placeholder="# of Months Displayed"/>
                 <label class="visually-hidden" for="monthNumberTwo">Number of Months</label>
             </div>
             

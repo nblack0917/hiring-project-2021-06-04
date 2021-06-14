@@ -216,7 +216,14 @@ let options = {
     },
     yAxis: {
         title: {
-            text: 'Temperature (F)'
+            text: 'Temperature ( \xB0 F )',
+            align: 'high',
+            x: -10
+        },
+        labels: {
+            align: 'left',
+            x: 0,
+            y: -2
         },
         minorGridLineWidth: 0,
         gridLineWidth: 0,
